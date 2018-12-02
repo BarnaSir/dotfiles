@@ -4,6 +4,7 @@ runtime macros/matchit.vim
 call vundle#begin()
 Plugin 'gmarik/vundle'
 Plugin 'tomtom/tcomment_vim'
+Plugin 'SirVer/ultisnips'
 Plugin 'scrooloose/nerdtree'
 Plugin 'tpope/vim-bundler'
 Plugin 'tpope/vim-cucumber'
@@ -18,7 +19,6 @@ Plugin 'vim-ruby/vim-ruby'
 Plugin 'MarcWeber/vim-addon-mw-utils'
 Plugin 'tomtom/tlib_vim'
 Plugin 'honza/vim-snippets'
-Plugin 'garbas/vim-snipmate'
 Plugin 'nathanaelkane/vim-indent-guides'
 Plugin 'flazz/vim-colorschemes'
 Plugin 'kchmck/vim-coffee-script'
@@ -33,10 +33,11 @@ Plugin 'vim-scripts/django.vim'
 Plugin 'vim-syntastic/syntastic'
 Plugin 'nvie/vim-flake8'
 Plugin 'Lokaltog/powerline',{ 'rtp': 'powerline/bindings/vim/' }
-" Plugin 'isnowfy/python-vim-instant-markdown'
+Plugin 'isnowfy/python-vim-instant-markdown'
 Plugin 'jtratner/vim-flavored-markdown'
 Plugin 'suan/vim-instant-markdown'
 Plugin 'nelstrom/vim-markdown-preview'
+Plugin 'Valloric/YouCompleteMe'
 " Plugin 'vim-scripts/Pydiction'
 call vundle#end()
 filetype plugin indent on
@@ -127,7 +128,8 @@ nnoremap <space> za
 " splitting between planes
 set splitright
 set splitbelow
-
+set fileformat=unix
+set laststatus=2
 " Rename tabs to show tab number.
 " (Based on http://stackoverflow.com/questions/5927952/whats-implementation-of-vims-default-tabline-function)
 if exists("+showtabline")
@@ -190,11 +192,22 @@ nnoremap <leader>8 8gt
 nnoremap <leader>9 9gt
 
 " "you-complete-me configuration
-" let g:ycm_autoclose_preview_window_after_completion = 1
-" map <leader>g :YcmCompleter GoToDefinitionElseDeclaration <CR>
-" let g:ycm_python_binary_path = 'python3'
+let g:ycm_autoclose_preview_window_after_completion = 1
+map <leader>g :YcmCompleter GoToDefinitionElseDeclaration <CR>
+let g:ycm_python_binary_path = 'python3'
+let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/third_party/ycmd/.ycm_extra_conf.py'
 
 let NERDTreeIgnore=['\.pyc$', '\~$'] "ignore files in NERDTree
-setfiletype htmldjango
-"run python file from vim
+"run python file from vim from F5 command
 nnoremap <buffer> <F5> :exec '!python' shellescape(@%, 1)<cr>
+
+" make YCM compatible with UltiSnips (using supertab)
+let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
+let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
+let g:SuperTabDefaultCompletionType = '<C-n>'
+
+" better key bindings for UltiSnipsExpandTrigger
+let g:UltiSnipsExpandTrigger = "<tab>"
+let g:UltiSnipsJumpForwardTrigger = "<tab>"
+let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
+
